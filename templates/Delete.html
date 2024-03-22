@@ -1,0 +1,11 @@
+{%extends "app.html"%}
+{%block content%}
+<div>
+    <h2>Are you sure you want to delete {{id}}</h2>
+    <form action="/deleteproduct/{{idgiven}}" method="POST">
+        <button type="submit" class="btn btn-primary" role="button">Proceed</button>
+        <a class="btn btn-primary" href="/Products" role="button">Cancel</a>
+    </form>
+    
+</div>
+{%endblock%}

@@ -1,0 +1,35 @@
+{%extends "app.html"%}
+{%block content%}
+<form action="/addProduct" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <!-- <label for="usr">Name:</label> -->
+        {{form.productname.label(for="Productname")}}
+        <!-- <input type="text" class="form-control" id="usr"> -->
+        {{form.productname(id="Productname",class="form-control")}}
+         
+      {% if form.productname.errors %}
+      <ul class="text-danger">
+          {% for error in form.productname.errors %}
+              <li>{{ error }}</li>
+          {% endfor %}
+      </ul>
+{% endif %}
+    
+      </div>
+      <div class="form-group">
+        {{form.productprice.label(for="Price")}}
+        {{form.productprice(id="Price",class="form-control")}}
+         
+      {% if form.productprice.errors %}
+      <ul class="text-danger">
+          {% for error in form.productprice.errors %}
+              <li>{{ error }}</li>
+          {% endfor %}
+      </ul>
+{% endif %}
+    
+      </div>
+      {{ form.submit(class="btn btn-dark mt-4")}}
+</form>
+{%endblock%}
