@@ -25,4 +25,7 @@ class updateform(FlaskForm):
     productprice=IntegerField('price',validators=[DataRequired()])
     submit=SubmitField('Submit')
     
-    
+class orderForm(FlaskForm):
+    productname=StringField("name",validators=[DataRequired()])
+    quantity=IntegerField("quantity",validators=[DataRequired()])
+    submit=SubmitField('Submit')

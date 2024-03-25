@@ -1,0 +1,36 @@
+{% extends "app.html" %}
+{% block content%}
+
+{% with messages = get_flashed_messages() %}
+     {% if messages %}
+      <div class="alert alert-success">
+      <ul>
+        {% for message in messages%}
+        <li>{{message}}</li>
+        {% endfor%}
+      </ul>
+    </div> 
+      {% endif%}
+      {% endwith %}
+
+<h1>ORDER List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for tuple in list %}
+    <tr>
+        {% for product in tuple %}
+            <td>{{ attribute }}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+        
+    </tbody>
+</table>
+{%endblock%}

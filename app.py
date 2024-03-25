@@ -1,6 +1,6 @@
 from flask import Flask,render_template,url_for,redirect,flash,request
 import psycopg2,os
-from form import add_product_form,updateform
+from form import add_product_form,updateform,orderForm
 app=Flask(__name__)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -72,5 +72,33 @@ def update(id):
   else:
   
     return render_template("updateform.html",id=id,form=form)
+  
+@app.route("/order", methods=["GET","POST"])
+def order():
+  form=orderForm()
+  productname=request.form.get("productname")
+  quantity=form.quantity.data
+  if request.method=='POST':
+   conn=db_connection()
+   cur=conn.cursor()
+   cur.execute('''INSERT INTO orders (prodcut_name,quantity) VALUES(%s,%s)''',(productname,quantity)) 
+   conn.commit()
+   conn.close()
+   flash("your order has been taken")
+   conn=db_connection()
+   cur=conn.cursor()
+   cur.execute('''SELECT * FROM orders''')
+   order=cur.fetchall()
+   conn.commit()
+   conn.close()
+   return render_template("orderlist.html",list=order)
+  else:
+    conn=db_connection()
+    cur=conn.cursor()
+    cur.execute('''SELECT name FROM produts''')
+    data=cur.fetchall()
+    conn.commit()
+    conn.close()
+    return render_template("orderform.html",form=form,products=data)
 if __name__=="__main__":
  app.run(debug=True)
